@@ -1,0 +1,674 @@
+@charset "utf-8";
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+/***
+ * 整体布局.
+ * ***/
+.fd-contain {
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    background-color: white;
+    position: relative;
+    box-sizing: border-box;
+    padding-bottom: 70px;
+}
+
+.fd-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 33px 0 16px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+    background: #0b1331;
+}
+
+.fd-logo {
+    float: left;
+}
+
+.fd-logo a {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.fd-logo a:hover {
+    text-decoration: none;
+}
+
+.fd-header-favicon-icon {
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: url("../images/sql.png") left center no-repeat;
+}
+
+.fd-header-right {
+    float: right;
+}
+
+a.fd-header-menu {
+    color: #bbb;
+    margin-left: 20px;
+}
+
+a.fd-header-menu:hover {
+    color: white;
+}
+
+a.fd-header-menu.fd-header-menu-checked {
+    color: white;
+    font-weight: 600;
+}
+
+a.fd-header-menu:hover {
+    text-decoration: none;
+}
+
+.fd-user-name {
+    font: 14px/50px 'microsoft yahei';
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+.fd-login:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.fd-change-pwd {
+    font: 14px/50px 'microsoft yahei';
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.fd-header-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("../images/index/icon-exit.png") 0 0 no-repeat;
+    margin-left: 10px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.fd-login-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url("../images/login.png") left center no-repeat;
+    background-size: 24px;
+    margin-left: 10px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.fd-change-pwd {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("../images/index/icon-pwd.png") 0 0 no-repeat;
+    margin-left: 5px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+/***
+ * 左边部分
+ * **/
+.fd-main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: white;
+    overflow-y: scroll;
+}
+
+.fd-main-title {
+    width: 100%;
+    margin-bottom: 20px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 20px;
+    background-color: #d9edf7;
+    border-bottom: 1px solid #bde9f1;
+    color: #3070a7;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.fd-main-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 170px;
+    height: 100%;
+    background: #293652;
+    color: #fff;
+}
+
+.fd-btn-toggle {
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    width: 10px;
+    margin-top: -34px;
+    height: 68px;
+    background: url("../images/icon-sq.png") 0 0 no-repeat;
+    z-index: 9;
+    cursor: pointer;
+}
+
+.fd-btn-toggle.active {
+    background: url("../images/icon-zk.png") 0 0 no-repeat;
+}
+
+/***
+ * 左边菜单
+ * ***/
+.aty-menu-vertical .aty-menu-submenu-title {
+    height: 45px;
+    font: 13px/45px 'microsoft yahei';
+    color: #fff;
+}
+
+.aty-menu-vertical .aty-menu-submenu .aty-menu-submenu-title {
+    padding: 0 10px;
+    background: url(../images/index/icon-close.png) 137px center no-repeat;
+    background-size: 12px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.aty-menu-vertical .aty-menu-submenu.aty-menu-opened .aty-menu-submenu-title {
+    background: #3e4760 url(../images/index/icon-open.png) 137px center no-repeat;
+    background-size: 12px;
+}
+
+.aty-menu-vertical .aty-menu-submenu.aty-menu-opened .aty-menu {
+    background-color: #3e4760;
+}
+
+.aty-menu-vertical .aty-menu-item {
+    height: 32px;
+    padding-left: 30px !important;
+    font: 13px/32px "microsoft yahei";
+    cursor: pointer;
+    color: #fff;
+}
+
+/*.aty-menu-vertical .aty-menu-item.an{
+	background: url("../images/index/icon-01.png") 11px center no-repeat;
+}
+.aty-menu-vertical .aty-menu-item.bd{
+	background: url("../images/index/icon-02.png") 11px center no-repeat;
+}
+.aty-menu-vertical .aty-menu-item.bg{
+	background: url("../images/index/icon-03.png") 11px center no-repeat;
+}
+.aty-menu-vertical .aty-menu-item.corpStorage{
+	background: url("../images/index/icon-04.png") 11px center no-repeat;
+}
+.aty-menu-vertical .aty-menu-item.opLog{
+	background: url("../images/index/icon-05.png") 11px center no-repeat;
+}
+*/
+.aty-menu-vertical .aty-menu-item-active.aty-menu-item,
+.aty-menu-vertical .aty-menu-item:hover {
+    background-color: #5a6380;
+}
+
+/**
+ * 右边部分
+ * ***/
+.fd-main-right {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding-top: 40px;
+    overflow: hidden;
+}
+
+.fd-tab-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: #293652;
+}
+
+.fd-tab-box > li {
+    position: relative;
+    float: left;
+    padding: 0 9px 0 10px;
+    min-width: 50px;
+    font: 13px/40px "microsoft yahei";
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    margin-left: -2px;
+}
+
+.fd-tab-box > li:first-child {
+    margin-left: 0;
+}
+
+.fd-tab-box > li.active {
+    color: #0b1331;
+}
+
+.fd-tab-box > li:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 10px;
+    height: 40px;
+    background: url("../images/index/bg-tab-03.png") 0 0 no-repeat;
+}
+
+.fd-tab-box > li:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 9px;
+    height: 40px;
+    background: url("../images/index/bg-tab-04.png") 0 0 no-repeat;
+}
+
+.fd-tab-box > li.active:before {
+    background: url("../images/index/bg-tab-01.png") 0 0 no-repeat;
+}
+
+.fd-tab-box > li.active:after {
+    background: url("../images/index/bg-tab-02.png") 0 0 no-repeat;
+}
+
+.fd-tab-box > li > span.fd-tab-name {
+    display: inline-block;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 25px;
+    background-color: #3e4760;
+}
+
+/*.fd-tab-box>li.an>.fd-tab-name{
+	background:#3e4760 url("../images/index/icon-01.png") 4px center no-repeat;
+}
+.fd-tab-box>li.bd>.fd-tab-name{
+	background:#3e4760 url("../images/index/icon-02.png") 4px center no-repeat;
+}
+.fd-tab-box>li.bg>.fd-tab-name{
+	background:#3e4760 url("../images/index/icon-03.png") 4px center no-repeat;
+}
+.fd-tab-box>li.corpStorage>.fd-tab-name{
+	background:#3e4760 url("../images/index/icon-04.png") 4px center no-repeat;
+}
+.fd-tab-box>li.opLog>.fd-tab-name{
+	background:#3e4760 url("../images/index/icon-05.png") 4px center no-repeat;
+}*/
+
+.fd-tab-box > li.active > span.fd-tab-name {
+    background-color: #fff;
+}
+
+/*.fd-tab-box>li.an.active>.fd-tab-name{
+	background:#fff url("../images/index/icon-active-01.png") 4px center no-repeat;
+}
+.fd-tab-box>li.bd.active>.fd-tab-name{
+	background:#fff url("../images/index/icon-active-02.png") 4px center no-repeat;
+}
+.fd-tab-box>li.bg.active>.fd-tab-name{
+	background:#fff url("../images/index/icon-active-03.png") 4px center no-repeat;
+}
+.fd-tab-box>li.corpStorage.active>.fd-tab-name{
+	background:#fff url("../images/index/icon-active-04.png") 4px center no-repeat;
+}
+.fd-tab-box>li.opLog.active>.fd-tab-name{
+	background:#fff url("../images/index/icon-active-05.png") 4px center no-repeat;
+}*/
+.fd-tab-box > li:hover:before {
+    background: url("../images/index/bg-tab-05.png") 0 0 no-repeat;
+}
+
+.fd-tab-box > li:hover:after {
+    background: url("../images/index/bg-tab-06.png") 0 0 no-repeat;
+}
+
+.fd-tab-box > li:hover span.fd-tab-name {
+    background-color: #5a6380;
+}
+
+/*.fd-tab-box>li.an:hover>.fd-tab-name{
+	background:#5a6380 url("../images/index/icon-hover-01.png") 4px center no-repeat;
+}
+.fd-tab-box>li.bd:hover>.fd-tab-name{
+	background:#5a6380 url("../images/index/icon-hover-02.png") 4px center no-repeat;
+}
+.fd-tab-box>li.bg:hover>.fd-tab-name{
+	background:#5a6380 url("../images/index/icon-hover-03.png") 4px center no-repeat;
+}
+.fd-tab-box>li.corpStorage:hover>.fd-tab-name{
+	background:#5a6380 url("../images/index/icon-hover-04.png") 4px center no-repeat;
+}
+.fd-tab-box>li.opLog:hover>.fd-tab-name{
+	background:#5a6380 url("../images/index/icon-hover-05.png") 4px center no-repeat;
+}*/
+.fd-tab-box > li.active:hover:before {
+    background: url("../images/index/bg-tab-01.png") 0 0 no-repeat;
+}
+
+.fd-tab-box > li.active:hover:after {
+    background: url("../images/index/bg-tab-02.png") 0 0 no-repeat;
+}
+
+.fd-tab-box > li.active:hover span.fd-tab-name {
+    background-color: #fff;
+}
+
+/*
+.fd-tab-box>li.an.active:hover>.fd-tab-name{
+	background:#fff url("../images/index/icon-active-01.png") 4px center no-repeat;
+}
+.fd-tab-box>li.bd.active:hover>.fd-tab-name{
+	background:#fff url("../images/index/icon-active-02.png") 4px center no-repeat;
+}
+.fd-tab-box>li.bg.active:hover>.fd-tab-name{
+	background:#fff url("../images/index/icon-active-03.png") 4px center no-repeat;
+}
+.fd-tab-box>li.corpStorage.active:hover>.fd-tab-name{
+	 background:#fff url("../images/index/icon-active-04.png") 4px center no-repeat;
+}
+.fd-tab-box>li.opLog.active:hover>.fd-tab-name{
+	background:#fff url("../images/index/icon-active-05.png") 4px center no-repeat;
+}*/
+.fd-iframe-box {
+    height: 85%;
+    position: absolute;
+    top: 40px;
+    padding: 10px;
+}
+
+.fd-main-content {
+    padding: 20px 10px 6px 15px;
+    width: 100%;
+    height: 90%;
+}
+
+.fd-delete-tabli {
+    position: absolute;
+    right: 18px;
+    top: 15px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: url(../images/index/icon-close-01.png) 0 0 no-repeat;
+    vertical-align: unset;
+    cursor: pointer;
+}
+
+.fd-tab-box > li.active .fd-delete-tabli {
+    background: url(../images/index/icon-close-02.png) 0 0 no-repeat;
+}
+
+.fd-mainBody {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.fd-welcome {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    width: 384px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #499fff;
+    text-align: center;
+    padding-bottom: 480px;
+    background: url("../images/index/img-welcome.png") center 86px no-repeat;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+[v-cloak] {
+    display: none;
+}
+
+/*去掉自带左边菜单的样式*/
+.aty-menu-vertical .aty-menu-submenu-title-icon {
+    display: none;
+}
+
+.aty-menu-vertical .aty-menu-item, .aty-menu-vertical .aty-menu-submenu-title {
+    padding: 0;
+    /*line-height: 32px;*/
+    -webkit-transition: all 0s ease-in-out;
+    transition: all 0s ease-in-out;
+}
+
+.aty-menu-vertical .aty-menu-item:hover {
+    background-color: #5a6380;
+}
+
+.aty-menu-light {
+    background: transparent;
+}
+
+.aty-menu-light.aty-menu-vertical .aty-menu-item-active:not(.aty-menu-submenu) {
+    color: #fff;
+    border: none;
+}
+
+.aty-menu-vertical.aty-menu-light:after {
+    display: none;
+}
+
+/*重置确认或删除确认模态框内容样式*/
+.fd-msg-01 {
+    font: 16px/50px 'microsoft yahei';
+    font-weight: bold;
+    color: #499fff;
+}
+
+.fd-msg-02 {
+    font: 14px/32px 'microsoft yahei';
+    color: #3e4760;
+}
+
+.fd-msgImp-02 {
+    font-weight: bold;
+    color: #499fff;
+}
+
+/*小标题*/
+.fd-title-01 {
+    display: inline-block;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    padding-left: 5px;
+    color: #3e4760;
+    font: 16px/18px 'microsoft yahei';
+    border-left: 4px solid #499fff;
+}
+
+/*新增储存节点弹窗间距单独处理*/
+.fd-storageEdit .aty-form-item {
+    margin-bottom: 30px;
+}
+
+/*遮蔽层转圈动画效果 */
+.fd-spin-posr > .aty-col {
+    position: relative;
+    height: 200px;
+    border: 1px solid black;
+}
+
+.demo-spin-icon-load {
+    animation: ani-demo-spin 1s linear infinite;
+}
+
+@keyframes ani-demo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.fd-path {
+    stroke-dasharray: 1, 157.07963267948966;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: stroke 2s ease-in-out infinite;
+}
+
+@keyframes stroke {
+    0% {
+        stroke-dasharray: 1, 157.07963267948966;
+        stroke: #3399ff;
+        stroke-dashoffset: 0
+    }
+    50% {
+        stroke-dasharray: 80, 157.07963267948966;
+        stroke-dashoffset: -60
+    }
+    100% {
+        stroke: purple;
+        stroke-dasharray: 90, 157.07963267948966;
+        stroke-dashoffset: -157.07963267948966
+    }
+}
+
+/* 滚动条凹槽的颜色，还可以设置边框属性 */
+::-webkit-scrollbar-track-piece {
+    background-color: #f8f8f8;
+}
+
+/* 滚动条的宽度 */
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+
+/* 滚动条的设置 */
+::-webkit-scrollbar-thumb {
+    background-color: #c3c3c3;
+    background-clip: padding-box;
+    min-height: 28px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #bbb;
+}
+
+footer {
+    width: 100%;
+    height: 70px;
+    background-color: #e9eaec96;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding-top: 10px;
+}
+
+footer > p {
+    font-size: 12px;
+    color: #888;
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+
+footer > p > a {
+    font-size: 12px;
+    color: #888;
+    margin-left: 20px;
+}
+
+footer > p > a:hover {
+    cursor: pointer;
+    color: #0c7b0f;
+}
+
+footer a {
+    cursor: pointer;
+    color: #888;
+}
+
+.normalStatus::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+    display: inline-block;
+    margin-right: 5px;
+    background-color: #33af14;
+}
+
+.abnormalStatus::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+    display: inline-block;
+    background-color: #f81005;
+    margin-right: 5px;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.ob-form {
+    padding: 0 20px;
+}
+
+.fd-input-pwd {
+    position: relative;
+    background: url("../images/icon-user-02.png") left center no-repeat;
+}
+
+.input-pwd .pwdEye,
+.fd-input-pwd .pwdEye {
+    position: absolute;
+    top: 0;
+    right: 10px;
+}

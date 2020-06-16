@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="../css/iview.css">
+    <link rel="stylesheet" type="text/css" href="../css/component-form.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <style>
+        body {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #eee;
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .app {
+            width: 350px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="app" class="container app">
+    <i-form ref="userForm" label-width="200">
+        <row>
+            <i-col span="24">
+                <h2 text="用户注册" level="2" style="text-align: center;"></h2>
+            </i-col>
+        </row>
+        <row>
+            <i-col span="24">
+                <form-item label="用户名" required>
+                    <i-input type="text" label="用户名" id="username" :rules="rules.userName" v-model="userInfo.userName"
+                             placeholder="Username"
+                             required style="width:300px;" size="large" autofocus></i-input>
+                </form-item>
+            </i-col>
+        </row>
+        <row>
+            <i-col span="24">
+                <form-item label="密码" required>
+                    <i-input type="password" label="密码" :rules="rules.password" id="password"
+                             v-model="userInfo.password" style="width:300px;"
+                             placeholder="Password" size="large" required></i-input>
+                </form-item>
+            </i-col>
+        </row>
+        <row>
+            <i-col span="24">
+                <form-item label="确认密码" required>
+                    <i-input type="password" label="确认密码" :rules="rules.confirmPassword" id="confirmPassword"
+                             v-model="userInfo.confirmPassword" style="width:300px;"
+                             placeholder="Confirm Password" size="large" required></i-input>
+                </form-item>
+            </i-col>
+        </row>
+        <row>
+            <i-col span="24">
+                <form-item>
+                    <i-button type="primary" text="保存" @click="saveUser" size="large" long>保存</i-button>
+                </form-item>
+            </i-col>
+        </row>
+    </i-form>
+</div>
+<script src="../js/plugin/axios/axios.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/plugin/vue/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/iview.min.js"></script>
+<script src="../js/registration.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

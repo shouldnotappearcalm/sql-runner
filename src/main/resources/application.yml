@@ -1,0 +1,41 @@
+server:
+  port: 3111
+
+# spring 相关配置
+spring:
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:file:~/.sql-runner/db/sqlrunner
+    username: sa
+    password: 6789@jkl
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update # 这里没用 JPA 的自动生成表结构等功能，你可以视自己的具体情况来开启.
+  resources:
+    cache:
+      # spring security 默认关闭静态资源缓存，这里打开，缓存 4 小时
+      cachecontrol:
+        max-age: 14400
+
+# 日志相关的简单配置.
+logging:
+  level:
+    root: info
+    org:
+      apache: warn
+      springframework: warn
+
+# sql-runner 的一些配置
+sqlrunner:
+  swagger:
+    open: true
+  connection:
+    # pool 中 connection 存活的分钟数
+    live-time: １
+  corn:
+    #clean-pool: 0 0/3 * * * ?
+    clean-pool: 0 0/3 * * * ?
+

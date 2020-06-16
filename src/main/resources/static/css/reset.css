@@ -1,0 +1,74 @@
+@charset "utf-8";
+/**
+* @version:	 		    2016.11.01
+* @createTime: 	 		2016.11.23
+* @updateTime: 			2016.11.23
+* @author:				wuwg
+* @name:  				reset
+* @description          reset.css ，这里是重置浏览器你样式的css
+*/
+*{padding:0;margin:0;box-sizing: border-box}
+html {
+    font-family: sans-serif; /* 1 */
+    -ms-text-size-adjust: 100%; /* 2 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+}
+html,body{font-family:"Microsoft Yahei";}
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;background:transparent;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+img,input{vertical-align:middle;}
+address,caption,cite,code,dfn,em,strong,th,var{font-weight:400;font-style:normal;}
+ol,ul{list-style:none;}
+caption,th{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-weight:400;font-size:100%;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;}
+.clear{clear:both;}
+a{text-decoration:none;cursor:pointer;color:#499fff;font-size: 14px}
+a:focus,input,textarea{outline-style:none;}
+a:hover{text-decoration:underline;color:#499fff;}
+.disabled a , a.disabled{color:#333;text-decoration:none;cursor:default;}
+article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block;}
+/**
+ * Add the correct display in IE 9-.
+ */
+audio,
+canvas,
+progress,
+video {
+    display: inline-block;
+}
+/**
+ * Add the correct display in iOS 4-7.
+ */
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+    vertical-align: baseline;
+}
+
+/**
+ * Add the correct display in IE 10-.
+ * 1. Add the correct display in IE.
+ */
+
+template, /* 1 */
+[hidden] {
+    display: none;
+}
+.layer {
+    zoom:1;
+}
+
+.layer:after {
+    content:"";
+    display:block;
+    clear:both;
+}

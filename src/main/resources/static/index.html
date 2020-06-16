@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SQL执行服务</title>
+    <link rel="stylesheet" href="./css/iview.css">
+    <link rel="stylesheet" type="text/css" href="./css/component-form.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/common.css"/>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <style>
+        .i-table,
+        .i-table__body-wrapper {
+            overflow: visible;
+        }
+
+        .fd-task-swicth.i-switch {
+            width: 60px;
+            margin-right: 10px;
+        }
+
+        .fd-task-swicth input[type=checkbox]:checked + .i-switch-inner:after {
+            left: 37px;
+        }
+
+        .i-text.normalStatus::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            display: inline-block;
+            margin-right: 5px;
+            background-color: #33af14;
+        }
+
+        .i-text.abnormalStatus::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            display: inline-block;
+            background-color: #f81005;
+            margin-right: 5px;
+        }
+
+        .fd-task-query-btn {
+            min-height: 30px;
+            margin: 0 20px 0 10px;
+        }
+
+        .fd-task-query-spin {
+            border: 1px solid #bdd7f1;
+            margin: 3px 0 0 10px;
+        }
+
+        .fd-run-spin {
+            display: none;
+            margin-left: 18px;
+        }
+
+        .fd-btn-xz {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app" class="fd-contain">
+    <!--头部-->
+    <div class="fd-header">
+        <div class="fd-header-favicon-icon"></div>
+        <div class="fd-logo"><a href="/">SQL 执行服务</a></div>
+        <template>
+            <a href="/" title="数据库列表" class="fd-header-menu fd-header-menu-checked">数据库列表</a>
+        </template>
+        <template>
+            <a href="../html/sql-run.html" title="执行sql" class="fd-header-menu">运行SQL</a>
+        </template>
+        <div class="fd-header-right">
+            <span class="fd-user-name" v-if="loginUser" v-cloak>欢迎您, {{ loginUser }}</span>
+            <a class="fd-header-icon" href="/logout" title="退出" v-if="loginUser"></a>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="fd-main">
+        <div class="fd-main-content">
+            <!--列表查询表单-->
+            <i-form inline ref="databaseForm" :data="databaseQuery">
+                <row>
+                    <i-col span="6">
+                        <i-input v-model.trim="databaseQuery.name" placeholder="请输入数据库连接名" label="连接名"
+                                 @enter="loadData" ></i-input>
+                    </i-col>
+                    <i-col span="5">
+                        <i-select v-model="databaseQuery.databaseType" clearable>
+                            <i-option v-for="item in databaseTypes" :value="item.value" :key="item.value">{{ item.label
+                                }}
+                            </i-option>
+                        </i-select>
+                    </i-col>
+                    <i-col span="5">
+                        <i-input v-model.trim="databaseQuery.databaseHost" placeholder="请输入数据库IP" label="数据库IP"
+                                 @enter="loadData"></i-input>
+                    </i-col>
+
+                    <i-col span="1" class="fd-task-query-btn">
+                        <template>
+                            <spin fix size="large" v-if="loadTaskSpin" class="fd-task-query-spin">
+                                <icon type="load-c" size="18" class="demo-spin-icon-load"></icon>
+                            </spin>
+                        </template>
+                        <i-button class="fd-btn-cx fd-ml10" @click="loadData" v-if="!loadTaskSpin" type="primary">
+                            查询
+                        </i-button>
+                    </i-col>
+                    <i-col span="2" style="margin-left: 10px">
+                        <i-button class="fd-btn-cz fd-ml10" html-type="reset" @click="resetForm">
+                            重置
+                        </i-button>
+                    </i-col>
+                </row>
+            </i-form>
+
+            <row v-if="loginUser">
+                <!--新增按钮-->
+                <i-button class="fd-btn-xz" @click="openEditModal(null)" icon="md-add" size="large" type="primary">
+                    添加
+                </i-button>
+            </row>
+
+            <!--数据table-->
+            <div style="position: relative">
+                <i-table class="fd-mt15" :columns="databaseColumns" :data="databaseList" stripe is-split-page
+                         ref="databaseTable">
+                    <template slot-scope="{ row, index }" slot="action">
+                        <i-button type="primary" size="small" style="margin-right: 5px" @click="openEditModal(row)">
+                            编辑
+                        </i-button>
+                        <i-button type="error" size="small" @click="deleteDatabaseInfo(row)">删除</i-button>
+                    </template>
+                </i-table>
+                <div style="margin: 10px;overflow: hidden">
+                    <div style="float: right;">
+                        <page show-total :total="pageInfo.total" :page-size="pageInfo.pageSize"
+                              @on-change="changeOffset"></page>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <template>
+        <modal
+                :loading="true"
+                v-model="modalShow"
+                title="连接信息"
+                width="900">
+            <i-spin size="large" v-if="submitSpin">
+                <icon type="load-c" size="18" class="demo-spin-icon-load"></icon>
+                <div>保存中...</div>
+            </i-spin>
+            <i-form ref="databaseInfo" :model="databaseInfo" :rules="rules" :label-width="100" v-if="!submitSpin" class="ob-form">
+                <row>
+                    <i-col span="12">
+                        <form-item label="连接名称" prop="name">
+                            <i-input :rules="rules.name" v-model="databaseInfo.name" style="width: 80%" placeholder="给本数据库的连接取一个名称"></i-input>
+                        </form-item>
+                    </i-col>
+                    <i-col span="12">
+                        <form-item label="数据库类型" prop="databaseType">
+                            <i-select style="width: 80%" v-model="databaseInfo.databaseType" clearable>
+                                <i-option v-for="item in databaseTypes" :value="item.value"  :key="item.value">{{ item.label }}
+                                </i-option>
+                            </i-select>
+                        </form-item>
+                    </i-col>
+                </row>
+                <row>
+                    <i-col span="12">
+                        <form-item label="IP 地址" prop="databaseHost">
+                            <i-input :rules="rules.databaseHost" style="width: 80%" v-model="databaseInfo.databaseHost" label="IP 地址" placeholder="IP 地址，如：172.25.8.73" :label-width=100></i-input>
+                        </form-item>
+                    </i-col>
+                    <i-col span="12">
+                        <form-item label="端口号" prop="databasePort">
+                            <i-input :rules="rules.databasePort" style="width: 80%" v-model="databaseInfo.databasePort" placeholder="端口号，如：5678" label="端口号" :label-width=100></i-input>
+                        </form-item>
+                    </i-col>
+                </row>
+                <row>
+                    <i-col span="12">
+                        <form-item label="用户名" prop="databaseUser">
+                            <i-input :rules="rules.databaseUser" style="width: 80%" v-model="databaseInfo.databaseUser" placeholder="数据库用户名"></i-input>
+                        </form-item>
+                    </i-col>
+                    <i-col span="12">
+                        <div class="input-pwd">
+                            <form-item label="访问密码" prop="databasePassword">
+                                <i-input :rules="rules.databasePassword" style="width: 80%" label="访问密码" :label-width=100 v-model="databaseInfo.databasePassword"
+                                     placeholder="请填写数据库连接密码" type="password" ref="pwd"></i-input>
+                                <icon type="eye" size="16" @click="switchPwdType" ref="pwdIcon" color="#959490" class="fd-eye pwdEye"></icon>
+                            </form-item>
+                        </div>
+                    </i-col>
+                </row>
+                <row>
+                    <i-col span="24">
+                        <form-item label="数据库名" prop="databaseName">
+                            <i-input style="width: 80%" :rules="rules.databaseName" v-model="databaseInfo.databaseName"
+                                 placeholder="请填写连接的数据库名" label="数据库名" :label-width=100></i-input>
+                        </form-item>
+                    </i-col>
+                </row>
+            </i-form>
+            <div slot="footer">
+                <i-button type="primary" @click="save">保存</i-button>
+                <i-button @click="cancel">取消</i-button>
+            </div>
+        </modal>
+    </template>
+</div>
+
+<script src="./js/plugin/axios/axios.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/plugin/vue/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/iview.min.js"></script>
+<script src="./js/index.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

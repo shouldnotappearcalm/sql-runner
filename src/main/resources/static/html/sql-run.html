@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SQL执行服务</title>
+    <link rel="stylesheet" href="../css/iview.css">
+    <link rel="stylesheet" type="text/css" href="../css/component-form.css" />
+    <link rel="stylesheet" type="text/css" href="../css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="../css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <style>
+        .i-table,
+        .i-table__body-wrapper {
+            overflow: visible;
+        }
+
+        .fd-task-swicth.i-switch {
+            width: 60px;
+            margin-right: 10px;
+        }
+
+        .fd-task-swicth input[type=checkbox]:checked+.i-switch-inner:after {
+            left: 37px;
+        }
+
+        .i-text.normalStatus::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            display: inline-block;
+            margin-right: 5px;
+            background-color: #33af14;
+        }
+
+        .i-text.abnormalStatus::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            display: inline-block;
+            background-color: #f81005;
+            margin-right: 5px;
+        }
+
+        .fd-task-query-btn {
+            min-height: 30px;
+            margin: 0 20px 0 10px;
+        }
+
+        .fd-task-query-spin {
+            border: 1px solid #bdd7f1;
+            margin: 3px 0 0 10px;
+        }
+
+        .fd-run-spin {
+            display: none;
+            margin-left: 18px;
+        }
+        .exec-result {
+            border: #0aabff;
+            border-style: dashed;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app" class="fd-contain">
+    <!--头部-->
+    <div class="fd-header">
+        <div class="fd-header-favicon-icon"></div>
+        <div class="fd-logo"><a href="/">SQL 执行服务</a></div>
+        <template>
+            <a href="/" title="数据库列表" class="fd-header-menu">数据库列表</a>
+        </template>
+        <template>
+            <a href="./sql-run.html" title="执行sql" class="fd-header-menu fd-header-menu-checked">运行SQL</a>
+        </template>
+        <div class="fd-header-right">
+            <span class="fd-user-name" v-if="loginUser" v-cloak>欢迎您, {{ loginUser }}</span>
+            <a class="fd-header-icon" href="/logout" title="退出" v-if="loginUser"></a>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="fd-main">
+        <div class="fd-main-content">
+            <!--列表查询表单-->
+            <i-form ref="databaseForm">
+                <row>
+                    <i-col span="12">
+                        <form-item label="连接名" required>
+                            <!--<auto-complete @on-change="databaseChange" v-model="sqlInfoDto.databaseInfoDto.id" style="width: 80%" clearable :simple="false" placeholder="请输入连接名...">
+                                <i-option v-for="item in databaseList" :value="item.id" >{{ item.name }}</i-option>
+                            </auto-complete>-->
+                            <i-select @on-change="databaseChange" v-model="databaseId" filterable style="width: 80%" clearable :simple="false" placeholder="请输入连接名...">
+                                <i-option v-for="item in databaseList" :value="item.id" >{{ item.name }}</i-option>
+                            </i-select>
+                        </form-item>
+                    </i-col>
+
+                    <i-col span="1" class="fd-task-query-btn">
+                        <template>
+                            <i-spin fix size="large" v-if="loadTaskSpin" class="fd-task-query-spin">
+                                <i-icon type="load-c" size="18" class="demo-spin-icon-load"></i-icon>
+                            </i-spin>
+                        </template>
+                        <i-button class="fd-btn-cx fd-ml10" type="primary" @click="execSql" v-if="!loadTaskSpin">
+                            运行
+                        </i-button>
+                    </i-col>
+                </row>
+                <row>
+                    <i-col span="20">
+                        <form-item label="执行sql" required>
+                            <i-input type="textarea" v-model="sqlInfoDto.sql" placeholder="请输入你需要执行的sql" style="width:100%" :rows="10"></i-input>
+                        </form-item>
+                    </i-col>
+                </row>
+            </i-form>
+            <row>
+                <!--<i-col span="12">
+                    <i-form-item label="返回结果">
+                        <i-textarea rows="15" v-model="execResultJsonStr"></i-textarea>
+                    </i-form-item>
+                </i-col>-->
+                <i-col span="22">
+                    <div class="exec-result">
+                        <pre>{{execResult}}</pre>
+                    </div>
+                </i-col>
+            </row>
+        </div>
+    </div>
+
+</div>
+<script src="../js/plugin/axios/axios.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/plugin/vue/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/iview.min.js"></script>
+<script src="../js/sql-run.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>
